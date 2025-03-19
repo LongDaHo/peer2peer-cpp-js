@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luồng Video WebRTC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #000;
+            aspect-ratio: 16/9;
+        }
+        .video-container h3 {
+            margin: 0;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 10;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+        }
+        .message-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 150px;
+            overflow-y: auto;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button.red {
+            background-color: #f44336;
+        }
+        button.red:hover {
+            background-color: #d32f2f;
+        }
+        .status {
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+        .ice-config {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .ice-servers {
+            margin-top: 5px;
+            font-family: monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+        .stats {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Luồng Video Trực Tiếp</h1>
+        
+        <div class="status" id="connectionStatus">
+            Trạng thái: Chưa kết nối
+        </div>
+        
+        <div class="controls">
+            <button id="connectBtn">Kết nối với Device</button>
+        </div>
+        
+        <div class="video-container">
+            <h3>Video từ Device</h3>
+            <video id="remoteVideo" autoplay playsinline></video>
+        </div>
+        
+        <div class="stats" id="videoStats">
+            Thống kê: Đang chờ kết nối...
+        </div>
+        
+        <div class="message-box" id="messageBox">
+            <div>Nhật ký kết nối sẽ hiển thị ở đây...</div>
+        </div>
+        
+        <div class="ice-config">
+            <div>Cấu hình STUN/TURN:</div>
+            <div class="ice-servers" id="iceServers"></div>
+        </div>
+    </div>
+
+    <script src="browser_client.js"></script>
+</body>
+</html> 

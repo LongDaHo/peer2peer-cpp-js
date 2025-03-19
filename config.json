@@ -1,0 +1,10 @@
+{
+    "peerId": "device",
+    "serverUrl": "ws://0.0.0.0:7860/ws",
+    "iceServers": [
+        {
+            "host": "stun.l.google.com",
+            "port": 19302
+        }
+    ]
+}
